@@ -1,0 +1,17 @@
+{
+  "name": "onlyfans-automation-manager",
+  "version": "1.0.0",
+  "main": "src/server/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server/server.js",
+    "test": "node test/run.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "openai": "^4.25.1",
+    "pg": "^8.11.2",
+    "node-cron": "^3.0.2"
+  }
+}
