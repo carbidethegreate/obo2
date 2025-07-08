@@ -9,6 +9,7 @@ import { runFullSync, refreshFan, backfillMessages } from './sync.js';
 import { safeGET, safePOST, safePUT, safeDELETE } from './api/onlyfansApi.js';
 import { startCronJobs } from './cron/index.js';
 import { query } from './db/db.js';
+import { runVariantExperiment } from './cron/experiment.js';
 
 const app = express();
 app.use(express.json());
@@ -269,6 +270,28 @@ app.post('/api/settings', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'settings update failed' });
+  }
+});
+
+app.post('/api/experiments', async (req, res) => {
+  try {
+    const { text } = req.body;
+    const id = await runVariantExperiment(text);
+    if (!id) return res.status(400).json({ error: 'no account' });
+    res.json({ id });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'experiment failed' });
+  }
+});
+
+app.get('/api/experiments', async (_, res) => {
+  try {
+    const rows = await query('SELECT * FROM experiments');
+    res.json(rows.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'experiments fetch failed' });
   }
 });
 

@@ -52,4 +52,15 @@ CREATE TABLE IF NOT EXISTS settings (
   value TEXT
 );
 
+CREATE TABLE IF NOT EXISTS experiments (
+  id SERIAL PRIMARY KEY,
+  variant_a_id BIGINT,
+  variant_b_id BIGINT,
+  a_text TEXT,
+  b_text TEXT,
+  a_opens INTEGER DEFAULT 0,
+  b_opens INTEGER DEFAULT 0,
+  winner TEXT
+);
+
 /*  End of File – Last modified 2025‑07‑06 */
