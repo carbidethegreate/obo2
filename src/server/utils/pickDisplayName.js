@@ -24,4 +24,4 @@ export async function pickDisplayName(fullName) {
   return res.choices[0].message.content.trim();
 }
 
-/*  End of File – Last modified 2025-07-07 */
+/*  End of File – Last modified 2025-07-06 */
