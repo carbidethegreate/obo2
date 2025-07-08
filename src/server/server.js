@@ -246,6 +246,32 @@ app.get('/api/ltv', async (_, res) => {
   }
 });
 
+app.get('/api/settings', async (_, res) => {
+  try {
+    const rows = await query('SELECT key, value FROM settings');
+    const obj = {};
+    for (const r of rows.rows) obj[r.key] = r.value === 'true';
+    res.json(obj);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'settings fetch failed' });
+  }
+});
+
+app.post('/api/settings', async (req, res) => {
+  try {
+    const { key, value } = req.body;
+    await query(
+      'INSERT INTO settings(key,value) VALUES($1,$2) ON CONFLICT(key) DO UPDATE SET value=EXCLUDED.value',
+      [key, String(value)]
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'settings update failed' });
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal error' });

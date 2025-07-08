@@ -12,6 +12,7 @@
     <QueueView />
     <VaultBrowser />
     <LtvCard />
+    <SettingsToggle />
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import VaultBrowser from './components/VaultBrowser.vue'
 import MassBlast from './components/MassBlast.vue'
 import PostManager from './components/PostManager.vue'
 import LtvCard from './components/LtvCard.vue'
+import SettingsToggle from './components/SettingsToggle.vue'
 </script>
 
 <!-- End of File – Last modified 2025‑07‑06 -->
