@@ -6,6 +6,7 @@
 
 import { safeGET } from '../api/onlyfansApi.js';
 import { query } from '../db/db.js';
+import { buildCharacter } from '../utils/buildCharacter.js';
 import { OpenAI } from 'openai';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -15,8 +16,24 @@ export async function generateReplies() {
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
     if (!acctId) return;
-    const fansRes = await query('SELECT fan_id, character_profile FROM fans');
+    const fansRes = await query('SELECT fan_id, character_profile, updated_at FROM fans');
     for (const fan of fansRes.rows) {
+      const needsRefresh = !fan.updated_at ||
+        (Date.now() - new Date(fan.updated_at).getTime() > 30 * 24 * 60 * 60 * 1000);
+      if (needsRefresh) {
+        const histMsgs = await query(
+          'SELECT text FROM messages WHERE fan_id=$1 ORDER BY created_at DESC LIMIT 30',
+          [fan.fan_id]
+        );
+        const histTxns = await query(
+          'SELECT type, amount FROM transactions WHERE fan_id=$1 ORDER BY created_at DESC LIMIT 10',
+          [fan.fan_id]
+        );
+        const profile = await buildCharacter(histMsgs.rows, histTxns.rows);
+        await query('UPDATE fans SET character_profile=$1, updated_at=NOW() WHERE fan_id=$2',
+          [profile, fan.fan_id]);
+        fan.character_profile = profile;
+      }
       const msgsRes = await query(
         'SELECT text FROM messages WHERE fan_id=$1 AND direction=$2 ORDER BY created_at DESC LIMIT 5',
         [fan.fan_id, 'in']
