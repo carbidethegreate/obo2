@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: smartPPV.js
     Purpose: Suggest PPV price
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 export function smartPPV(spendHistory) {
@@ -11,4 +11,4 @@ export function smartPPV(spendHistory) {
   return suggested;
 }
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

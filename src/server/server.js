@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: server.js
     Purpose: Express entry-point
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 import express from 'express';
@@ -257,4 +257,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

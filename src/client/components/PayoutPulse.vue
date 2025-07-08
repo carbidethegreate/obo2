@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: PayoutPulse.vue
      Purpose: show payout balance
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div class="payout" :style="style">
     <span>{{ balance }}</span>
@@ -26,4 +26,4 @@ const style = computed(() => ({
 }))
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->

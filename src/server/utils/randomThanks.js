@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: randomThanks.js
     Purpose: provide random thank-you phrases
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 export function randomThanks() {
@@ -15,4 +15,4 @@ export function randomThanks() {
   return phrases[Math.floor(Math.random() * phrases.length)];
 }
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

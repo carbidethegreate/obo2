@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: index.js
     Purpose: Cron scheduler
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 import cron from 'node-cron';
@@ -17,4 +17,4 @@ export function startCronJobs() {
   cron.schedule('30 1 * * *', churnPredictor);
 }
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

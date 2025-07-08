@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: pickDisplayName.js
     Purpose: Helpers to normalise names
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 import { OpenAI } from 'openai';
@@ -24,4 +24,4 @@ export async function pickDisplayName(fullName) {
   return res.choices[0].message.content.trim();
 }
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

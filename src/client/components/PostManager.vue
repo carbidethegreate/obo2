@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: PostManager.vue
      Purpose: create and list posts
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div class="post-manager">
     <h2>Post Manager</h2>
@@ -62,4 +62,4 @@ async function remove(id) {
 onMounted(load)
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->

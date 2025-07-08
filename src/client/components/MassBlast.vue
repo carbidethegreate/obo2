@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: MassBlast.vue
      Purpose: mass DM wizard
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div class="mass-blast">
     <h2>Mass Message</h2>
@@ -40,4 +40,4 @@ async function send() {
 }
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->

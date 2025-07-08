@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: sync.js
     Purpose: Master sync runner
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 import { safeGET } from './api/onlyfansApi.js';
@@ -130,4 +130,4 @@ export async function backfillMessages() {
   }
 }
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: App.vue
      Purpose: root component
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div id="app">
     <h1>OnlyFans Automation Manager</h1>
@@ -25,4 +25,4 @@ import PostManager from './components/PostManager.vue'
 import LtvCard from './components/LtvCard.vue'
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->

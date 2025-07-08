@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: schema.sql
     Purpose: Database schema
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 CREATE TABLE IF NOT EXISTS fans (
@@ -52,4 +52,4 @@ CREATE TABLE IF NOT EXISTS settings (
   value TEXT
 );
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

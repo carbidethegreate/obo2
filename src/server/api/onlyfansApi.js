@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: onlyfansApi.js
     Purpose: wrapper around OnlyFans API
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 import fetch from 'node-fetch';
@@ -48,4 +48,4 @@ export const safePOST = (path, body) => safeRequest('POST', path, { body: JSON.s
 export const safePUT = (path, body) => safeRequest('PUT', path, { body: JSON.stringify(body) });
 export const safeDELETE = (path) => safeRequest('DELETE', path);
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

@@ -1,7 +1,7 @@
 /*  OnlyFans Automation Manager
     File: autoThank.js
     Purpose: Auto-thank Cron
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 import { safeGET, safePOST } from '../api/onlyfansApi.js';
@@ -31,4 +31,4 @@ export async function autoThank() {
   }
 }
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */

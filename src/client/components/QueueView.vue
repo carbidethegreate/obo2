@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: QueueView.vue
      Purpose: list future posts
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div class="queue-view">
     <h2>Scheduled Items</h2>
@@ -39,4 +39,4 @@ async function publish(id) {
 onMounted(load)
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->

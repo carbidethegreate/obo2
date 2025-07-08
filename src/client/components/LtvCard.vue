@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: LtvCard.vue
      Purpose: display top lifetime value fans
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div class="ltv-card">
     <h2>Top Fans</h2>
@@ -33,4 +33,4 @@ async function load() {
 onMounted(load)
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->
