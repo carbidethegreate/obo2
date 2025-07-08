@@ -46,6 +46,7 @@ async function safeRequest(method, path, options = {}, retry = 0) {
 export const safeGET = (path) => safeRequest('GET', path);
 export const safePOST = (path, body) => safeRequest('POST', path, { body: JSON.stringify(body) });
 export const safePUT = (path, body) => safeRequest('PUT', path, { body: JSON.stringify(body) });
+export const safePATCH = (path, body) => safeRequest('PATCH', path, { body: JSON.stringify(body) });
 export const safeDELETE = (path) => safeRequest('DELETE', path);
 
 /*  End of File – Last modified 2025‑07‑06 */

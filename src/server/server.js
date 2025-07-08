@@ -334,6 +334,112 @@ app.get('/api/tracking-links/:id/subscribers', async (req, res) => {
   }
 });
 
+// Saved-for-later messages
+app.get('/api/saved-messages', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safeGET(`/api/${acctId}/saved-for-later/messages`);
+    res.json(data.data || []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'saved messages fetch failed' });
+  }
+});
+
+app.get('/api/saved-messages/settings', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safeGET(`/api/${acctId}/saved-for-later/messages/settings`);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'message settings fetch failed' });
+  }
+});
+
+app.post('/api/saved-messages/settings', async (req, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safePATCH(`/api/${acctId}/saved-for-later/messages`, req.body);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'update message settings failed' });
+  }
+});
+
+app.post('/api/saved-messages/disable', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safePATCH(`/api/${acctId}/saved-for-later/messages/disable`, {});
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'disable message failed' });
+  }
+});
+
+// Saved-for-later posts
+app.get('/api/saved-posts', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safeGET(`/api/${acctId}/saved-for-later/posts`);
+    res.json(data.data || []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'saved posts fetch failed' });
+  }
+});
+
+app.get('/api/saved-posts/settings', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safeGET(`/api/${acctId}/saved-for-later/posts/settings`);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'post settings fetch failed' });
+  }
+});
+
+app.post('/api/saved-posts/settings', async (req, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safePATCH(`/api/${acctId}/saved-for-later/posts`, req.body);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'update post settings failed' });
+  }
+});
+
+app.post('/api/saved-posts/disable', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safePATCH(`/api/${acctId}/saved-for-later/posts/disable`, {});
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'disable post failed' });
+  }
+});
+
 app.get('/api/questionnaire', async (_, res) => {
   try {
     const rows = await query('SELECT * FROM questionnaire_answers');
