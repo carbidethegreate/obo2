@@ -334,6 +334,16 @@ app.get('/api/tracking-links/:id/subscribers', async (req, res) => {
   }
 });
 
+app.get('/api/questionnaire', async (_, res) => {
+  try {
+    const rows = await query('SELECT * FROM questionnaire_answers');
+    res.json(rows.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'questionnaire fetch failed' });
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal error' });

@@ -63,4 +63,11 @@ CREATE TABLE IF NOT EXISTS experiments (
   winner TEXT
 );
 
+CREATE TABLE IF NOT EXISTS questionnaire_answers (
+  id SERIAL PRIMARY KEY,
+  fan_id BIGINT REFERENCES fans(fan_id),
+  qa JSONB,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
 /*  End of File – Last modified 2025‑07‑06 */

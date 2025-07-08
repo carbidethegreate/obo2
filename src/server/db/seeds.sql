@@ -11,6 +11,7 @@ INSERT INTO settings(key, value) VALUES
   ('autoThankEnabled', 'true'),
   ('spendTierNudgerEnabled', 'true'),
   ('generateRepliesEnabled', 'true'),
-  ('churnPredictorEnabled', 'true');
+  ('churnPredictorEnabled', 'true'),
+  ('questionnaireEnabled', 'true');
 
 /*  End of File – Last modified 2025‑07‑06 */

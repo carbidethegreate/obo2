@@ -6,6 +6,8 @@
 import assert from 'assert';
 import { randomThanks } from '../src/server/utils/randomThanks.js';
 import { smartPPV } from '../src/server/utils/smartPPV.js';
+process.env.OPENAI_API_KEY = '';
+const { rateSentiment } = await import('../src/server/cron/sendQuestionnaire.js');
 
 // randomThanks should return one of the predefined phrases
 const phrase = randomThanks();
@@ -20,6 +22,10 @@ assert.strictEqual(name, 'Alice');
 // smartPPV should return roughly 20% of average spend bounded 5-50
 const price = smartPPV([10, 20, 30]);
 assert(price >= 5 && price <= 50);
+
+// rateSentiment returns 0 without API key
+const score = await rateSentiment('Great!');
+assert.strictEqual(score, 0);
 
 console.log('utils tests passed');
 
