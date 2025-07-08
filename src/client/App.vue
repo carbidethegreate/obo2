@@ -12,6 +12,8 @@
     <QueueView />
     <VaultBrowser />
     <LtvCard />
+    <ProfileVisitors />
+    <TrackingLinks />
     <SettingsToggle />
   </div>
 </template>
@@ -24,6 +26,8 @@ import VaultBrowser from './components/VaultBrowser.vue'
 import MassBlast from './components/MassBlast.vue'
 import PostManager from './components/PostManager.vue'
 import LtvCard from './components/LtvCard.vue'
+import ProfileVisitors from './components/ProfileVisitors.vue'
+import TrackingLinks from './components/TrackingLinks.vue'
 import SettingsToggle from './components/SettingsToggle.vue'
 </script>
 

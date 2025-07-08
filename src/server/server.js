@@ -295,6 +295,45 @@ app.get('/api/experiments', async (_, res) => {
   }
 });
 
+app.get('/api/profile-visitors', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safeGET(`/api/${acctId}/statistics/reach/profile-visitors`);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'visitors fetch failed' });
+  }
+});
+
+app.get('/api/tracking-links', async (_, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safeGET(`/api/${acctId}/tracking-links`);
+    res.json(data.data || []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'tracking fetch failed' });
+  }
+});
+
+app.get('/api/tracking-links/:id/subscribers', async (req, res) => {
+  try {
+    const accounts = await safeGET('/api/accounts');
+    const acctId = accounts.data[0]?.id;
+    if (!acctId) return res.status(400).json({ error: 'no account' });
+    const data = await safeGET(`/api/${acctId}/tracking-links/${req.params.id}/subscribers`);
+    res.json(data.data || []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'tracking subs failed' });
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: 'Internal error' });
