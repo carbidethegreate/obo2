@@ -5,10 +5,12 @@
 */
 
 import { OpenAI } from 'openai';
+import { decryptEnv } from '../security/secureKeys.js';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let openai;
 
 export async function buildCharacter(messages, purchases) {
+  if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
   const history = messages.slice(-30).map(m => m.text).join('\n');
   const spend = purchases.slice(-10).map(p => `${p.type} $${p.amount}`).join(', ');
   const prompt = `Summarise this fan's personality in first person, 200 words, avoid explicit content and provide as much detail as necessary to write to this character in an authentic way matching their written way of communicating. Messages: ${history}. Purchases: ${spend}`;

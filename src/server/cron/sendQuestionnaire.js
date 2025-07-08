@@ -7,11 +7,12 @@
 import { safeGET, safePOST } from '../api/onlyfansApi.js';
 import { query } from '../db/db.js';
 import { OpenAI } from 'openai';
+import { decryptEnv } from '../security/secureKeys.js';
 
-const apiKey = process.env.OPENAI_API_KEY || '';
-const openai = apiKey ? new OpenAI({ apiKey }) : { apiKey: '' };
+let openai;
 
 export async function rateSentiment(text) {
+  if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
   if (!openai.apiKey) return 0;
   const prompt = `Rate the sentiment of this reply from -1 (negative) to 1 (positive). Only return the number. Text: ${text}`;
   const res = await openai.chat.completions.create({

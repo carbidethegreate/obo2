@@ -6,8 +6,9 @@
 
 import { query } from '../db/db.js';
 import { OpenAI } from 'openai';
+import { decryptEnv } from '../security/secureKeys.js';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let openai;
 
 function sigmoid(z) {
   return 1 / (1 + Math.exp(-z));
@@ -52,6 +53,7 @@ export function auc(preds, labels) {
 
 export async function churnPredictor() {
   try {
+    if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
     const res = await query('SELECT fan_id, msg_total, spend_total, subscription_status FROM fans');
     const data = res.rows.map(r => ({
       id: r.fan_id,

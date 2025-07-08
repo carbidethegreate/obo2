@@ -5,12 +5,13 @@
 */
 
 import { OpenAI } from 'openai';
+import { decryptEnv } from '../security/secureKeys.js';
 
-const apiKey = process.env.OPENAI_API_KEY || '';
-const openai = apiKey ? new OpenAI({ apiKey }) : null;
+let openai;
 
 export async function pickDisplayName(fullName) {
-  if (!openai) {
+  if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
+  if (!openai.apiKey) {
     const first = fullName.split(/\s+/)[0] || 'Fan';
     return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase();
   }

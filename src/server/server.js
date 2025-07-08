@@ -11,6 +11,8 @@ import { startCronJobs } from './cron/index.js';
 import { query } from './db/db.js';
 import { runVariantExperiment } from './cron/experiment.js';
 import { startAuth, pollAuth, submitTwoFactor } from './api/auth.js';
+import { graphqlHTTP } from 'express-graphql';
+import { schema } from './graphql/schema.js';
 
 const app = express();
 app.use(express.json());
@@ -18,6 +20,8 @@ app.use(express.json());
 app.get('/health', (_, res) => {
   res.json({ status: 'ok' });
 });
+
+app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
 
 app.post('/api/auth/start', async (req, res) => {
   try {
@@ -338,6 +342,19 @@ app.get('/api/profile-visitors', async (_, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'visitors fetch failed' });
+  }
+});
+
+app.delete('/gdpr/export/:fanId', async (req, res) => {
+  try {
+    const fanId = req.params.fanId;
+    const fan = await query('SELECT * FROM fans WHERE fan_id=$1', [fanId]);
+    const messages = await query('SELECT * FROM messages WHERE fan_id=$1', [fanId]);
+    const txns = await query('SELECT * FROM transactions WHERE fan_id=$1', [fanId]);
+    res.json({ fan: fan.rows[0], messages: messages.rows, transactions: txns.rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'gdpr export failed' });
   }
 });
 
