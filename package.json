@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/server/server.js",
-    "test": "node test/churnPredictor.test.js"
+    "test": "node test/run.js"
   },
   "dependencies": {
     "express": "^4.18.2",
