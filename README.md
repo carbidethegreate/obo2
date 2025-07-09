@@ -5,11 +5,25 @@ For step-by-step setup instructions, open [docs/instructions.html](docs/instruct
 
 ## Development
 
+Install dependencies with:
 
-Run `npm test` once to install dependencies and verify tests.
-Then run `npm start` to launch the Express server.
+```bash
+npm install --legacy-peer-deps
+```
 
-Run `npm start` to launch the Express server after installing dependencies.
+Run the tests once:
+
+```bash
+npm test
+```
+
+Start the Express server:
+
+```bash
+npm start
+```
+
+`express-graphql` is currently used for the GraphQL endpoint. The package is deprecated and may be replaced by `graphql-http` in a future update.
 
 
 ### Resetting the remote repo
