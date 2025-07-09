@@ -5,7 +5,8 @@
   "scripts": {
     "pretest": "npm install --legacy-peer-deps",
     "test": "node test/run.js",
-    "start": "node src/server/server.js"
+    "start": "node src/server/server.js",
+    "admin": "node src/server/admin.js"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -16,6 +17,7 @@
     "openai": "^4.11.0",
     "libsodium-wrappers": "^0.7.10",
     "pg": "^8.10.0",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "dotenv": "^16.3.1"
   }
 }
