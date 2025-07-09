@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "pretest": "npm install --legacy-peer-deps",
+    "pretest": "npm ci --legacy-peer-deps",
     "test": "node test/run.js",
     "start": "node src/server/server.js",
     "admin": "node src/server/admin.js"
