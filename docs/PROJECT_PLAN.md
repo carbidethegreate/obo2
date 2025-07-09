@@ -1,3 +1,8 @@
+/*  OnlyFans Automation Manager
+    File: PROJECT_PLAN.md
+    Purpose: Comprehensive project plan
+    Created: 2025‑07‑06 – v1.0
+*/
 # obo2
 
 OnlyFans Automation Manager – Full Project Plan v1.0
@@ -609,3 +614,5 @@ PPV
 Pay‑Per‑View – paid message or post.
 LTV
 Lifetime Value – total net spend by a fan.
+
+/*  End of File – Last modified 2025‑07‑06 */
