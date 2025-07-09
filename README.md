@@ -2,6 +2,7 @@
 
 See [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) for the complete project plan.
 For step-by-step setup instructions, open [docs/instructions.html](docs/instructions.html) in your browser.
+The admin dashboard is launched with `npm run admin` as described in the instructions file.
 
 ## Development
 
