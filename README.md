@@ -2,14 +2,29 @@
 
 See [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) for the complete project plan.
 For step-by-step setup instructions, open [docs/instructions.html](docs/instructions.html) in your browser.
+The admin dashboard is launched with `npm run admin` as described in the instructions file.
 
 ## Development
 
+Install dependencies with:
 
-Run `npm test` once to install dependencies and verify tests.
-Then run `npm start` to launch the Express server.
+```bash
+npm install --legacy-peer-deps
+```
 
-Run `npm start` to launch the Express server after installing dependencies.
+Run the tests once:
+
+```bash
+npm test
+```
+
+Start the Express server:
+
+```bash
+npm start
+```
+
+`express-graphql` is currently used for the GraphQL endpoint. The package is deprecated and may be replaced by `graphql-http` in a future update.
 
 
 ### Resetting the remote repo
