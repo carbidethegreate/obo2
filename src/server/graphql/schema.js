@@ -3,13 +3,13 @@
     Purpose: basic GraphQL schema
     Created: 2025-07-06 – v1.0
 */
-import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLInt } from 'graphql';
+import { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLList, GraphQLID } from 'graphql';
 import { query } from '../db/db.js';
 
 const FanType = new GraphQLObjectType({
   name: 'Fan',
   fields: {
-    fan_id: { type: GraphQLInt },
+    fan_id: { type: GraphQLID },
     display_name: { type: GraphQLString },
     username: { type: GraphQLString }
   }

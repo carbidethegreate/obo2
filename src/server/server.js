@@ -12,7 +12,7 @@ import { startCronJobs } from './cron/index.js';
 import { query } from './db/db.js';
 import { runVariantExperiment } from './cron/experiment.js';
 import { startAuth, pollAuth, submitTwoFactor } from './api/auth.js';
-import { graphqlHTTP } from 'express-graphql';
+import { createHandler } from 'graphql-http/lib/use/express';
 import { schema } from './graphql/schema.js';
 
 const app = express();
@@ -22,7 +22,7 @@ app.get('/health', (_, res) => {
   res.json({ status: 'ok' });
 });
 
-app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
+app.all('/graphql', createHandler({ schema }));
 
 app.post('/api/auth/start', async (req, res) => {
   try {
