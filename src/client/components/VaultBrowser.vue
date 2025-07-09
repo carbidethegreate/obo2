@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: VaultBrowser.vue
      Purpose: browse vault lists
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div class="vault-browser">
     <h2>Vault</h2>
@@ -64,4 +64,4 @@ async function remove(id) {
 onMounted(load)
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->

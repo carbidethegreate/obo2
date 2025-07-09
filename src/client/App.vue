@@ -1,7 +1,7 @@
 <!-- OnlyFans Automation Manager
      File: App.vue
      Purpose: root component
-     Created: 2025-07-06 – v1.0 -->
+     Created: 2025‑07‑06 – v1.0 -->
 <template>
   <div id="app">
     <h1>OnlyFans Automation Manager</h1>
@@ -11,6 +11,11 @@
     <PostManager />
     <QueueView />
     <VaultBrowser />
+    <LtvCard />
+    <ProfileVisitors />
+    <ProfileSearch />
+    <TrackingLinks />
+    <SettingsToggle />
   </div>
 </template>
 
@@ -21,6 +26,11 @@ import QueueView from './components/QueueView.vue'
 import VaultBrowser from './components/VaultBrowser.vue'
 import MassBlast from './components/MassBlast.vue'
 import PostManager from './components/PostManager.vue'
+import LtvCard from './components/LtvCard.vue'
+import ProfileVisitors from './components/ProfileVisitors.vue'
+import ProfileSearch from './components/ProfileSearch.vue'
+import TrackingLinks from './components/TrackingLinks.vue'
+import SettingsToggle from './components/SettingsToggle.vue'
 </script>
 
-<!-- End of File – Last modified 2025-07-06 -->
+<!-- End of File – Last modified 2025‑07‑06 -->

@@ -1,13 +1,18 @@
 /*  OnlyFans Automation Manager
     File: onlyfansApi.js
     Purpose: wrapper around OnlyFans API
-    Created: 2025-07-06 – v1.0
+    Created: 2025‑07‑06 – v1.0
 */
 
 import fetch from 'node-fetch';
+import { decryptEnv } from '../security/secureKeys.js';
 
 const BASE_URL = 'https://app.onlyfansapi.com';
-const TOKEN = process.env.ONLYFANS_API_KEY || '';
+let TOKEN = '';
+async function getToken() {
+  if (!TOKEN) TOKEN = await decryptEnv('ONLYFANS_API_KEY');
+  return TOKEN;
+}
 
 function wait(ms) {
   return new Promise(r => setTimeout(r, ms));
@@ -18,7 +23,7 @@ async function safeRequest(method, path, options = {}, retry = 0) {
   const jitter = 250 + Math.random() * 500;
   await wait(jitter);
   const headers = {
-    Authorization: `Bearer ${TOKEN}`,
+    Authorization: `Bearer ${await getToken()}`,
     'Content-Type': 'application/json',
     ...(options.headers || {})
   };
@@ -46,6 +51,7 @@ async function safeRequest(method, path, options = {}, retry = 0) {
 export const safeGET = (path) => safeRequest('GET', path);
 export const safePOST = (path, body) => safeRequest('POST', path, { body: JSON.stringify(body) });
 export const safePUT = (path, body) => safeRequest('PUT', path, { body: JSON.stringify(body) });
+export const safePATCH = (path, body) => safeRequest('PATCH', path, { body: JSON.stringify(body) });
 export const safeDELETE = (path) => safeRequest('DELETE', path);
 
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025‑07‑06 */
