@@ -6,7 +6,7 @@
 
 import express from 'express';
 import { runFullSync, refreshFan, backfillMessages } from './sync.js';
-import { safeGET, safePOST, safePUT, safeDELETE } from './api/onlyfansApi.js';
+import { safeGET, safePOST, safePUT, safePATCH, safeDELETE } from './api/onlyfansApi.js';
 import { startCronJobs } from './cron/index.js';
 import { query } from './db/db.js';
 import { runVariantExperiment } from './cron/experiment.js';
