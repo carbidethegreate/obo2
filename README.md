@@ -1,3 +1,8 @@
+/*  OnlyFans Automation Manager
+    File: README.md
+    Purpose: Project overview and setup instructions
+    Created: 2025‑07‑06 – v1.0
+*/
 # obo2
 # OnlyFans Automation Manager
 
@@ -629,3 +634,5 @@ Lifetime Value – total net spend by a fan.
 
 obo2
 You must have valid Git credentials for the target repository.
+
+/*  End of File – Last modified 2025‑07‑06 */
