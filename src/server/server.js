@@ -8,6 +8,11 @@ import 'dotenv/config';
 import express from 'express';
 import { runFullSync, refreshFan, backfillMessages } from './sync.js';
 import { safeGET, safePOST, safePUT, safePATCH, safeDELETE } from './api/onlyfansApi.js';
+
+import express from 'express';
+import { runFullSync, refreshFan, backfillMessages } from './sync.js';
+import { safeGET, safePOST, safePUT, safeDELETE } from './api/onlyfansApi.js';
+
 import { startCronJobs } from './cron/index.js';
 import { query } from './db/db.js';
 import { runVariantExperiment } from './cron/experiment.js';
@@ -406,6 +411,7 @@ app.get('/api/profiles/:username', async (req, res) => {
   }
 });
 
+
 // Saved-for-later messages
 app.get('/api/saved-messages', async (_, res) => {
   try {
@@ -533,4 +539,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-/*  End of File – Last modified 2025‑07‑06 */
+
