@@ -5,7 +5,12 @@ For step-by-step setup instructions, open [docs/instructions.html](docs/instruct
 
 ## Development
 
+
+Run `npm test` once to install dependencies and verify tests.
+Then run `npm start` to launch the Express server.
+
 Run `npm start` to launch the Express server after installing dependencies.
+
 
 ### Resetting the remote repo
 
