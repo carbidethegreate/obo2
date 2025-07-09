@@ -6,10 +6,15 @@ For step-by-step setup instructions, open [docs/instructions.html](docs/instruct
 ## Development
 
 
-Run `npm test` once to install dependencies and verify tests.
-Then run `npm start` to launch the Express server.
+Set the `DATABASE_URL` environment variable to the connection string for your
+PostgreSQL instance, for example:
 
-Run `npm start` to launch the Express server after installing dependencies.
+```bash
+export DATABASE_URL=postgres://user:pass@localhost/dbname
+```
+
+Run `npm test` once to install dependencies and verify tests. Then run
+`npm start` to launch the Express server.
 
 
 ### Resetting the remote repo
