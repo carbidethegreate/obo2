@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# push-reset.sh
+# OnlyFans Automation Manager
+# File: push-reset.sh
+# Purpose: Force push local repo state to a remote
+# Created: 2025-07-06 – v1.0
 # Usage: ./push-reset.sh <remote_git_url>
 
 set -euo pipefail
@@ -23,3 +26,5 @@ git checkout -B main
 
 # Force-push the current repository state to origin/main
 git push --force origin main
+
+# End of File – Last modified 2025-07-06
