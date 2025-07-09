@@ -5,7 +5,6 @@
 */
 import assert from 'assert';
 import sodium from 'libsodium-wrappers';
-
 import { decryptEnv, sealString } from '../src/server/security/secureKeys.js';
 
 await sodium.ready;
@@ -14,16 +13,6 @@ process.env.KEY_PUBLIC = Buffer.from(publicKey).toString('hex');
 process.env.KEY_PRIVATE = Buffer.from(privateKey).toString('hex');
 const sealed = await sealString('secret', process.env.KEY_PUBLIC);
 process.env.TEST_KEY = sealed;
-
-import { decryptEnv } from '../src/server/security/secureKeys.js';
-
-await sodium.ready;
-const { publicKey, privateKey } = sodium.crypto_box_keypair();
-const sealed = sodium.crypto_box_seal(Buffer.from('secret'), publicKey);
-process.env.KEY_PUBLIC = Buffer.from(publicKey).toString('hex');
-process.env.KEY_PRIVATE = Buffer.from(privateKey).toString('hex');
-process.env.TEST_KEY = Buffer.from(sealed).toString('base64');
-
 const value = await decryptEnv('TEST_KEY');
 assert.strictEqual(value, 'secret');
 console.log('secureKeys test passed');
