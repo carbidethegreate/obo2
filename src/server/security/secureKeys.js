@@ -1,11 +1,8 @@
 /*  OnlyFans Automation Manager
     File: secureKeys.js
-
-    Purpose: encrypt/decrypt API keys using libsodium sealed boxes
-
     Purpose: decrypt API keys using libsodium sealed boxes
-
     Created: 2025-07-06 – v1.0
+*/
 
 import sodium from 'libsodium-wrappers';
 
