@@ -8,6 +8,17 @@ The admin dashboard is launched with `npm run admin` as described in the instruc
 
 Install dependencies with:
 
+
+Set the `DATABASE_URL` environment variable to the connection string for your
+PostgreSQL instance, for example:
+
+```bash
+export DATABASE_URL=postgres://user:pass@localhost/dbname
+```
+
+Run `npm test` once to install dependencies and verify tests. Then run
+`npm start` to launch the Express server.
+
 ```bash
 npm install --legacy-peer-deps
 ```
@@ -25,6 +36,7 @@ npm start
 ```
 
 `express-graphql` is currently used for the GraphQL endpoint. The package is deprecated and may be replaced by `graphql-http` in a future update.
+
 
 
 ### Resetting the remote repo
