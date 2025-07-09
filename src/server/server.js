@@ -4,9 +4,10 @@
     Created: 2025‑07‑06 – v1.0
 */
 
+import 'dotenv/config';
 import express from 'express';
 import { runFullSync, refreshFan, backfillMessages } from './sync.js';
-import { safeGET, safePOST, safePUT, safeDELETE } from './api/onlyfansApi.js';
+import { safeGET, safePOST, safePUT, safePATCH, safeDELETE } from './api/onlyfansApi.js';
 import { startCronJobs } from './cron/index.js';
 import { query } from './db/db.js';
 import { runVariantExperiment } from './cron/experiment.js';
@@ -381,6 +382,27 @@ app.get('/api/tracking-links/:id/subscribers', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'tracking subs failed' });
+  }
+});
+
+app.get('/api/profiles/search', async (req, res) => {
+  try {
+    const q = req.query.search || '';
+    const data = await safeGET(`/api/search?search=${encodeURIComponent(q)}`);
+    res.json(data.data || []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'profile search failed' });
+  }
+});
+
+app.get('/api/profiles/:username', async (req, res) => {
+  try {
+    const data = await safeGET(`/api/profiles/${encodeURIComponent(req.params.username)}`);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'profile fetch failed' });
   }
 });
 
