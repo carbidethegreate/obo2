@@ -4,7 +4,6 @@
     Created: 2025‑07‑06 – v1.0
 */
 
-import fetch from 'node-fetch';
 import { decryptEnv } from '../security/secureKeys.js';
 
 const BASE_URL = 'https://app.onlyfansapi.com';
