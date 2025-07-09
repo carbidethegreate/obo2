@@ -7,11 +7,13 @@
 import { safeGET, safePOST } from '../api/onlyfansApi.js';
 import { query } from '../db/db.js';
 import { OpenAI } from 'openai';
+import { decryptEnv } from '../security/secureKeys.js';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let openai;
 
 export async function spendTierNudger() {
   try {
+    if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
     if (!acctId) return;

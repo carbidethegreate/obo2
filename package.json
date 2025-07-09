@@ -1,17 +1,23 @@
 {
-  "name": "onlyfans-automation-manager",
+  "name": "obo2",
   "version": "1.0.0",
-  "main": "src/server/server.js",
   "type": "module",
   "scripts": {
+    "pretest": "npm install --legacy-peer-deps",
+    "test": "node test/run.js",
     "start": "node src/server/server.js",
-    "test": "node test/run.js"
+    "admin": "node src/server/admin.js"
   },
   "dependencies": {
     "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.8.1",
     "node-fetch": "^3.3.2",
-    "openai": "^4.25.1",
-    "pg": "^8.11.2",
-    "node-cron": "^3.0.2"
+    "node-cron": "^3.0.2",
+    "openai": "^4.11.0",
+    "libsodium-wrappers": "^0.7.10",
+    "pg": "^8.10.0",
+    "vue": "^3.3.4",
+    "dotenv": "^16.3.1"
   }
 }
