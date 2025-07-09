@@ -1,0 +1,21 @@
+{
+  "name": "onlyfans-automation-manager",
+  "version": "1.0.0",
+  "main": "src/server/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server/server.js",
+    "pretest": "npm install --legacy-peer-deps",
+    "test": "node test/run.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.11.0",
+    "libsodium-wrappers": "^0.7.15",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^3.3.2",
+    "openai": "^4.25.1",
+    "pg": "^8.11.2"
+  }
+}
