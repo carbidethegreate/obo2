@@ -10,7 +10,7 @@ Created 2025‑07‑06
 This document is a single source of truth for Codex.
 It describes what we are building, why, and exactly how to build it – down to file names, numbered comment blocks, API calls, and ChatGPT prompts.
 Copy it into your repo’s /docs/PROJECT_PLAN.md; every ticket, pull‑request, and commit must trace back to a requirement here.
-Run `npm start` to launch the Express server after installing dependencies.
+Run `npm start` to launch the Express server after installing dependencies with `npm ci`.
 
 Table of Contents
 ### Resetting the remote repo

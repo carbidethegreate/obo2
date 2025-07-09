@@ -1,9 +1,8 @@
-
+/*  OnlyFans Automation Manager
+    File: secureKeys.js
     Purpose: decrypt API keys using libsodium sealed boxes
-
     Created: 2025-07-06 – v1.0
 */
-
 import sodium from 'libsodium-wrappers';
 
 let keyPair;
@@ -26,5 +25,11 @@ export async function decryptEnv(name) {
   const decrypted = sodium.crypto_box_seal_open(sealed, keyPair.publicKey, keyPair.privateKey);
   return Buffer.from(decrypted).toString();
 }
-
 export async function sealString(value, publicKeyHex) {
+  await sodium.ready;
+  const pk = Buffer.from(publicKeyHex, 'hex');
+  const sealed = sodium.crypto_box_seal(Buffer.from(value), pk);
+  return Buffer.from(sealed).toString('base64');
+}
+
+/*  End of File – Last modified 2025-07-06 */
