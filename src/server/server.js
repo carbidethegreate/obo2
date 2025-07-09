@@ -384,6 +384,27 @@ app.get('/api/tracking-links/:id/subscribers', async (req, res) => {
   }
 });
 
+app.get('/api/profiles/search', async (req, res) => {
+  try {
+    const q = req.query.search || '';
+    const data = await safeGET(`/api/search?search=${encodeURIComponent(q)}`);
+    res.json(data.data || []);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'profile search failed' });
+  }
+});
+
+app.get('/api/profiles/:username', async (req, res) => {
+  try {
+    const data = await safeGET(`/api/profiles/${encodeURIComponent(req.params.username)}`);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'profile fetch failed' });
+  }
+});
+
 // Saved-for-later messages
 app.get('/api/saved-messages', async (_, res) => {
   try {
