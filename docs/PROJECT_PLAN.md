@@ -611,9 +611,3 @@ LTV
 Lifetime Value – total net spend by a fan.
 
 
-
-
-
-
-
-obo2
