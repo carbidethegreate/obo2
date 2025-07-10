@@ -53,5 +53,3 @@ const Mutation = new GraphQLObjectType({
 export const schema = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
 
 
-/*  End of File – Last modified 2025-07-06 */
-

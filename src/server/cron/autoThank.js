@@ -34,6 +34,3 @@ export async function autoThank() {
   }
 }
 
-
-/*  End of File – Last modified 2025‑07‑06 */
-
