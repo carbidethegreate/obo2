@@ -2,6 +2,7 @@
 
 The following tasks are ordered roughly in the sequence needed to finish the project according to the [PROJECT_PLAN](docs/PROJECT_PLAN.md).
 
+
 1. **Database migrations and seed verification** *(done)*
    - [x] Ensure `schema.sql` and `seeds.sql` are applied automatically on first run via `npm run db:init`.
    - [x] Add instructions for PostgreSQL setup in the README.
@@ -9,6 +10,15 @@ The following tasks are ordered roughly in the sequence needed to finish the pro
 2. **Complete GraphQL layer** *(done)*
    - [x] Expand `graphql/schema.js` with a `sendMessage` mutation.
    - [x] Added unit test `graphql.test.js`.
+=======
+1. **Database migrations and seed verification**
+   - Ensure `schema.sql` and `seeds.sql` are applied automatically on first run.
+   - Add scripts or instructions for setting up PostgreSQL locally and in production.
+
+2. **Complete GraphQL layer**
+   - Expand `graphql/schema.js` with mutations and additional queries as required by the UI.
+   - Write unit tests for the resolvers.
+
 
 3. **Finalize cron job logic**
    - Review each cron in `src/server/cron/` and confirm feature toggles from the `settings` table work as intended.
@@ -41,6 +51,19 @@ The following tasks are ordered roughly in the sequence needed to finish the pro
    - [x] README describes DB init and docker-compose.
    - [x] Instructions page mentions DB init.
    - [ ] Update the `Revision Log` in the project plan.
+
+7. **CI/CD pipeline enhancements**
+   - Update `.github/workflows/nodejs.yml` to install dependencies, lint, run tests, and build a Docker image on every push.
+   - Publish Docker images with tags `of-manager:{git-sha}` and deploy to staging automatically.
+
+8. **Deployment scripts**
+   - Provide Docker Compose or similar configuration for running the app, database, and any reverse proxy in production.
+   - Document environment variables required for production.
+
+9. **Documentation polish**
+   - Ensure README and `docs/instructions.html` reflect final setup steps and feature list.
+   - Update the `Revision Log` in the project plan after completing major milestones.
+n
 
 10. **Final manual QA**
     - Run through each user story end-to-end in staging.
