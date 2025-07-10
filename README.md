@@ -1,8 +1,3 @@
-
-README.md
-+23
--609
-
 # obo2
 # OnlyFans Automation Manager
 
@@ -60,12 +55,22 @@ chmod +x push-reset.sh
 ```
 
 API Key Verification and Account Management
+You must have valid Git credentials for the target repository.
 
 Logic: The project should first verify that the API key is valid and identify the current team context. This is done via the Whoami endpoint, which returns the API key’s name and associated team. After that, the project manages connected OnlyFans accounts (the creator accounts linked to the API key). It lists all connected accounts, fetches details of the current account’s OnlyFans profile, and allows disconnecting accounts.
+### Production environment
 
 Verification: This logic is sound. Calling GET /api/whoami confirms the API key is working. Then GET /api/accounts lists connected OnlyFans accounts (with their IDs and authentication status). Each account object contains an id (like "acct_123") and the onlyfans_user_data which has the OnlyFans profile info. To get detailed profile info for the active account, the project uses Get Current Account by specifying the account ID in the path. Note that the {account} path parameter must be replaced with the connected account’s ID (e.g. acct_123), as shown in the endpoint GET /api/{account}/me. Disconnecting an account is done via the Disconnect Account endpoint (DELETE /api/accounts/{id}), which requires the account’s ID.
+Set these variables when deploying:
 
 Suggestions: Ensure the project stores the account ID (acct_*) from the List Accounts response and uses it for subsequent calls. It’s also important to handle the case where no OnlyFans account is connected (the list could be empty). After disconnecting an account, remove its ID from your local cache to avoid using an invalid ID.
+```
+DATABASE_URL=postgres://user:pass@host/db
+ONLYFANS_API_KEY=<encrypted string>
+OPENAI_API_KEY=<encrypted string>
+KEY_PUBLIC=<hex public key>
+KEY_PRIVATE=<hex private key>
+```
 
 Key API Calls:
 	•	Check API Key: GET /api/whoami – Verifies the API token and returns API key name and team.
@@ -644,4 +649,4 @@ Lifetime Value – total net spend by a fan.
 
 
 obo2
-You must have valid Git credentials for the target repository.
+`ONLYFANS_API_KEY` and `OPENAI_API_KEY` are sealed boxes generated via the admin dashboard.

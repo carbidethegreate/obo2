@@ -10,6 +10,7 @@ import { randomThanks } from '../utils/randomThanks.js';
 
 export async function autoThank() {
   try {
+    console.log('autoThank cron started');
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
     if (!acctId) return;
@@ -24,8 +25,10 @@ export async function autoThank() {
       await safePOST(`/api/${acctId}/chats/${t.user_id}/messages`, { text });
       lastId = t.id;
       await query('INSERT INTO settings(key,value) VALUES($1,$2) ON CONFLICT (key) DO UPDATE SET value=EXCLUDED.value', ['autoThankLastTxn', String(lastId)]);
+      console.log(`autoThanked fan ${t.user_id} for txn ${t.id}`);
       await new Promise(r => setTimeout(r, 1000));
     }
+    console.log('autoThank cron finished');
   } catch (err) {
     console.error('autoThank failed', err);
   }

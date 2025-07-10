@@ -1,13 +1,24 @@
-/*  OnlyFans Automation Manager
-    File: run.js
-    Purpose: simple test runner (uses Node to run all tests)
-    Created: 2025-07-06 – v1.0
-*/
-
-process.env.SKIP_DB="1";
-import './churnPredictor.test.js';
-import './utils.test.js';
-import './secureKeys.test.js';
-import './graphql.test.js';
-
-/*  End of File – Last modified 2025-07-06 */
+{
+  "name": "obo2",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "pretest": "npm install --legacy-peer-deps",
+    "test": "SKIP_DB=1 node test/run.js",
+    "start": "node src/server/server.js",
+    "admin": "node src/server/admin.js",
+    "db:init": "node scripts/initDb.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.8.1",
+    "node-fetch": "^3.3.2",
+    "node-cron": "^3.0.2",
+    "openai": "^4.11.0",
+    "libsodium-wrappers": "^0.7.10",
+    "pg": "^8.10.0",
+    "vue": "^3.3.4",
+    "dotenv": "^16.3.1"
+  }
+}
