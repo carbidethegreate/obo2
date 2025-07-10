@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "pretest": "npm install --legacy-peer-deps",
-    "test": "node test/run.js",
+    "test": "SKIP_DB=1 node test/run.js",
     "start": "node src/server/server.js",
-    "admin": "node src/server/admin.js"
+    "admin": "node src/server/admin.js",
+    "db:init": "node scripts/initDb.js"
   },
   "dependencies": {
     "express": "^4.18.2",

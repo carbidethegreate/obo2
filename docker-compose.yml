@@ -1,0 +1,25 @@
+#  OnlyFans Automation Manager
+#  File: docker-compose.yml
+#  Purpose: local development stack
+#  Created: 2025-07-06 – v1.0
+version: '3.9'
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ofuser
+      POSTGRES_PASSWORD: ofpass
+      POSTGRES_DB: ofdb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgres://ofuser:ofpass@db:5432/ofdb
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+volumes:
+  db_data:
+#  End of File – Last modified 2025-07-06

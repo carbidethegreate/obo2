@@ -1,3 +1,8 @@
+
+README.md
++23
+-609
+
 # obo2
 # OnlyFans Automation Manager
 
@@ -15,7 +20,7 @@ Run `npm test` once to install dependencies and verify tests.
 Then run `npm start` to launch the Express server.
 
 Table of Contents
-### Resetting the remote repo
+### Database setup
 
 0. Higghlevel Analysis of OnlyFans API Usage in the Project
 	1.	Project Overview
@@ -32,18 +37,27 @@ Table of Contents
 	12.	Security, Rate Limits, Error Handling
 	13.	Glossary
 	14.	Revision Log
+Ensure PostgreSQL is running and `DATABASE_URL` is set. Initialise tables with:
+```bash
+npm run db:init
+```
+
+To run everything with Docker Compose:
+```bash
+docker-compose up --build
+```
+
+### Resetting the remote repo
+
+0. Analysis of OnlyFans API Usage in the Project
 If you need to push the current state of this project to a new Git remote, run
 the helper script:
 
+This project integrates a wide range of OnlyFans API endpoints to manage accounts, content, fans, messaging, and analytics. Below we verify each part of the logic, suggest improvements, and provide the actual API requests (with proper HTTP method and path) for each user story. All findings are based on the official OnlyFans API reference.
 ```bash
 chmod +x push-reset.sh
 ./push-reset.sh <git_remote_url>
 ```
-
-
-0. Analysis of OnlyFans API Usage in the Project
-
-This project integrates a wide range of OnlyFans API endpoints to manage accounts, content, fans, messaging, and analytics. Below we verify each part of the logic, suggest improvements, and provide the actual API requests (with proper HTTP method and path) for each user story. All findings are based on the official OnlyFans API reference.
 
 API Key Verification and Account Management
 

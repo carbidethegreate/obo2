@@ -9,3 +9,5 @@ jobs:
         with:
           node-version: '20'
       - run: npm test
+      - run: docker build -t of-manager:${{ github.sha }} .
+
