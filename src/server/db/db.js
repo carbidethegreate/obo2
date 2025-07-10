@@ -20,4 +20,6 @@ export const query = (text, params) => {
   return pool.query(text, params);
 };
 
+
 /*  End of File – Last modified 2025‑07‑06 */
+
