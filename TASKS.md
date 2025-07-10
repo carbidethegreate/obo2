@@ -45,4 +45,3 @@ The following tasks are ordered roughly in the sequence needed to finish the pro
 10. **Final manual QA**
     - Run through each user story end-to-end in staging.
     - Fix any bugs discovered before tagging v1.0.
-
