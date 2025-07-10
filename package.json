@@ -5,7 +5,7 @@
   "scripts": {
     "pretest": "npm install --legacy-peer-deps",
     "test": "SKIP_DB=1 NODE_OPTIONS=--experimental-vm-modules jest",
-    "start": "node src/server/server.js",
+    "start": "npm run db:init && node src/server/server.js",
     "admin": "node src/server/admin.js",
     "db:init": "node scripts/initDb.js"
   },
