@@ -5,7 +5,6 @@ The following tasks are ordered roughly in the sequence needed to finish the pro
 1. **Database migrations and seed verification** *(done)*
    - [x] Ensure `schema.sql` and `seeds.sql` are applied automatically on first run via `npm run db:init`.
    - [x] Add instructions for PostgreSQL setup in the README.
-   - [x] Make seeds idempotent using `ON CONFLICT DO NOTHING`.
 
 2. **Complete GraphQL layer** *(done)*
    - [x] Expand `graphql/schema.js` with a `sendMessage` mutation.
@@ -46,4 +45,3 @@ The following tasks are ordered roughly in the sequence needed to finish the pro
 10. **Final manual QA**
     - Run through each user story end-to-end in staging.
     - Fix any bugs discovered before tagging v1.0.
-

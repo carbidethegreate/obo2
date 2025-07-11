@@ -14,7 +14,6 @@ Ensure PostgreSQL is running and `DATABASE_URL` is set. Initialise tables with:
 ```bash
 npm run db:init
 ```
-You can safely run `npm run db:init` multiple times; seed inserts are idempotent.
 
 To run everything with Docker Compose:
 ```bash
@@ -32,17 +31,3 @@ chmod +x push-reset.sh
 ```
 
 You must have valid Git credentials for the target repository.
-
-### Production environment
-
-Set these variables when deploying:
-
-```
-DATABASE_URL=postgres://user:pass@host/db
-ONLYFANS_API_KEY=<encrypted string>
-OPENAI_API_KEY=<encrypted string>
-KEY_PUBLIC=<hex public key>
-KEY_PRIVATE=<hex private key>
-```
-
-`ONLYFANS_API_KEY` and `OPENAI_API_KEY` are sealed boxes generated via the admin dashboard.

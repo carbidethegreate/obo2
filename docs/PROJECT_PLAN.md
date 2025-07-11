@@ -11,6 +11,7 @@ Copy it into your repo’s /docs/PROJECT_PLAN.md; every ticket, pull‑request, 
 Table of Contents
 
 0. High-Level Analysis of OnlyFans API Usage in the Project
+
 	1.	Project Overview
 	2.	Guiding Principles
 	3.	High‑Level Architecture
