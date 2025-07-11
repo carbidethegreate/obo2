@@ -555,6 +555,7 @@ Directory map:
 	4.	Squash merge into main, auto‑deploy to staging.
 	5.	Tags – bump minor version every merged epic, patch for hot‑fixe
         6.      Validate package.json syntax after edits using jq . package.json or use an online JSON linter.
+        7.      Copy .env.example to .env and run `npm run init-db` on first setup.
 
 10. Testing Strategy
 

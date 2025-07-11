@@ -3,7 +3,21 @@
     Purpose: Express entry-point (orchestrates API endpoints for all stories)
     Created: 2025‑07‑06 – v1.0
 */
-import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
+
+const envPath = path.resolve(process.cwd(), '.env');
+if (!fs.existsSync(envPath)) {
+  const example = path.resolve(process.cwd(), '.env.example');
+  if (fs.existsSync(example)) {
+    fs.copyFileSync(example, envPath);
+  } else {
+    fs.writeFileSync(envPath, 'DATABASE_URL=postgres://username:password@localhost:5432/your_db_name\n');
+  }
+  console.log('Created .env file. Please edit it to add your database credentials.');
+}
+dotenv.config({ path: envPath });
 
 import express from 'express';
 import initDb from '../../scripts/initDb.js';
@@ -16,7 +30,12 @@ import { startAuth, pollAuth, submitTwoFactor } from './api/auth.js';
 import { graphqlHTTP } from 'express-graphql';
 import { schema } from './graphql/schema.js';
 
-await initDb();
+if (process.env.INIT_DB_ON_STARTUP === 'true') {
+  await initDb().catch(err => {
+    console.error('Database init failed', err);
+    process.exit(1);
+  });
+}
 
 const app = express();
 app.use(express.json());
