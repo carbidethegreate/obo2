@@ -11,6 +11,7 @@ Copy it into your repo’s /docs/PROJECT_PLAN.md; every ticket, pull‑request, 
 Table of Contents
 
 0. High-Level Analysis of OnlyFans API Usage in the Project
+
 	1.	Project Overview
 	2.	Guiding Principles
 	3.	High‑Level Architecture
@@ -614,3 +615,4 @@ Lifetime Value – total net spend by a fan.
 ## Revision Log
 - 2025-07-06: Added instructions HTML and user story annotations in code.
 - 2025-07-10: Added full stack implementation with cron jobs, Vue dashboard, Docker setup and secure key storage.
+
