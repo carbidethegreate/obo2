@@ -10,7 +10,8 @@ Copy it into your repo’s /docs/PROJECT_PLAN.md; every ticket, pull‑request, 
 
 Table of Contents
 
-0. Higghlevel Analysis of OnlyFans API Usage in the Project
+0. High-Level Analysis of OnlyFans API Usage in the Project
+
 	1.	Project Overview
 	2.	Guiding Principles
 	3.	High‑Level Architecture
@@ -553,7 +554,7 @@ Directory map:
 	3.	Code owners require at least one reviewer for every OnlyFans request wrapper.
 	4.	Squash merge into main, auto‑deploy to staging.
 	5.	Tags – bump minor version every merged epic, patch for hot‑fixe
-        6.      Validate package.json syntax after edits using jq . package.json or an online JSON linter.
+        6.      Validate package.json syntax after edits using jq . package.json or use an online JSON linter.
 
 10. Testing Strategy
 
@@ -614,3 +615,5 @@ Lifetime Value – total net spend by a fan.
 
 ## Revision Log
 - 2025-07-06: Added instructions HTML and user story annotations in code.
+- 2025-07-10: Added full stack implementation with cron jobs, Vue dashboard, Docker setup and secure key storage.
+- 2025-07-11: Made database seeds idempotent and updated instructions.

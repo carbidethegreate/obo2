@@ -53,6 +53,7 @@ export function auc(preds, labels) {
 
 export async function churnPredictor() {
   try {
+    console.log('churnPredictor cron started');
     if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
     const res = await query('SELECT fan_id, msg_total, spend_total, subscription_status FROM fans');
     const data = res.rows.map(r => ({
@@ -88,9 +89,11 @@ export async function churnPredictor() {
           'INSERT INTO queue(queue_id, type, payload, publish_at) VALUES(DEFAULT,$1,$2,NOW())',
           ['churn-note', { fanId: d.id, prob: prob.toFixed(2), note }]
         );
+        console.log(`churn note queued for fan ${d.id}`);
         await new Promise(r => setTimeout(r, 1000));
       }
     }
+    console.log('churnPredictor cron finished');
   } catch (err) {
     console.error('churnPredictor failed', err);
   }

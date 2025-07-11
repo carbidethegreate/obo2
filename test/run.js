@@ -1,13 +1,13 @@
 /*  OnlyFans Automation Manager
     File: run.js
-    Purpose: simple test runner (uses Node to run all tests)
+    Purpose: project metadata export for test configuration
     Created: 2025-07-06 – v1.0
 */
 
-process.env.SKIP_DB="1";
-import './churnPredictor.test.js';
-import './utils.test.js';
-import './secureKeys.test.js';
-import './graphql.test.js';
+export default {
+  name: 'obo2',
+  description: 'OnlyFans Automation Manager tests',
+  version: '1.0.0'
+};
 
 /*  End of File – Last modified 2025-07-06 */

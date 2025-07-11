@@ -3,6 +3,8 @@
     Purpose: Express entry-point (orchestrates API endpoints for all stories)
     Created: 2025‑07‑06 – v1.0
 */
+import initDb from '../../scripts/initDb.js';
+await initDb();
 
 import 'dotenv/config';
 import express from 'express';
@@ -353,6 +355,9 @@ app.delete('/gdpr/export/:fanId', async (req, res) => {
     const messages = await query('SELECT * FROM messages WHERE fan_id=$1', [fanId]);
     const txns = await query('SELECT * FROM transactions WHERE fan_id=$1', [fanId]);
     res.json({ fan: fan.rows[0], messages: messages.rows, transactions: txns.rows });
+    await query('DELETE FROM messages WHERE fan_id=$1', [fanId]);
+    await query('DELETE FROM transactions WHERE fan_id=$1', [fanId]);
+    await query('DELETE FROM fans WHERE fan_id=$1', [fanId]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'gdpr export failed' });
@@ -532,5 +537,3 @@ startCronJobs();
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-/*  End of File – Last modified 2025‑07‑06 */
