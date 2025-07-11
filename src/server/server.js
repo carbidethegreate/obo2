@@ -4,9 +4,9 @@
     Created: 2025‑07‑06 – v1.0
 */
 import 'dotenv/config';
+
 import express from 'express';
 import initDb from '../../scripts/initDb.js';
-await initDb();
 import { runFullSync, refreshFan, backfillMessages } from './sync.js';
 import { safeGET, safePOST, safePUT, safePATCH, safeDELETE } from './api/onlyfansApi.js';
 import { startCronJobs } from './cron/index.js';
@@ -15,6 +15,8 @@ import { runVariantExperiment } from './cron/experiment.js';
 import { startAuth, pollAuth, submitTwoFactor } from './api/auth.js';
 import { graphqlHTTP } from 'express-graphql';
 import { schema } from './graphql/schema.js';
+
+await initDb();
 
 const app = express();
 app.use(express.json());
