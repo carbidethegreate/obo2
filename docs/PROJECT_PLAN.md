@@ -615,4 +615,4 @@ Lifetime Value – total net spend by a fan.
 ## Revision Log
 - 2025-07-06: Added instructions HTML and user story annotations in code.
 - 2025-07-10: Added full stack implementation with cron jobs, Vue dashboard, Docker setup and secure key storage.
-
+- 2025-07-11: Made database seeds idempotent and updated instructions.
