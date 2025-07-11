@@ -4,9 +4,9 @@
     Created: 2025‑07‑06 – v1.0
 */
 import 'dotenv/config';
+import express from 'express';
 import initDb from '../../scripts/initDb.js';
 await initDb();
-import express from 'express';
 import { runFullSync, refreshFan, backfillMessages } from './sync.js';
 import { safeGET, safePOST, safePUT, safePATCH, safeDELETE } from './api/onlyfansApi.js';
 import { startCronJobs } from './cron/index.js';
