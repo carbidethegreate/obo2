@@ -554,7 +554,8 @@ Directory map:
 	3.	Code owners require at least one reviewer for every OnlyFans request wrapper.
 	4.	Squash merge into main, auto‑deploy to staging.
 	5.	Tags – bump minor version every merged epic, patch for hot‑fixe
-        6.      Validate package.json syntax after edits using jq . package.json or use an online JSON linter.
+  6.      Validate package.json syntax after edits using jq . package.json or use an online JSON linter.
+
 
 10. Testing Strategy
 
