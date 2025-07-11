@@ -18,4 +18,4 @@ jobs:
       - run: |
           docker tag of-manager:${{ github.sha }} ghcr.io/${{ github.repository }}/of-manager:${{ github.sha }}
           docker push ghcr.io/${{ github.repository }}/of-manager:${{ github.sha }}
-=======
+
