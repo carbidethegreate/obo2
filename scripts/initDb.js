@@ -7,6 +7,8 @@
 import 'dotenv/config'; // load .env for DATABASE_URL
 import fs from 'fs';
 import pg from 'pg';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const { Pool } = pg;
 
@@ -48,7 +50,8 @@ export default async function initDb() {
   }
 }
 
-if (import.meta.url === process.argv[1]) {
+const thisFile = fileURLToPath(import.meta.url);
+if (path.resolve(process.argv[1] || '') === thisFile) {
   initDb()
     .then(() => process.exit(0))
     .catch(err => {
@@ -56,4 +59,4 @@ if (import.meta.url === process.argv[1]) {
       process.exit(1);
     });
 }
-/*  End of File – Last modified 2025-07-06 */
+/*  End of File – Last modified 2025-07-11 */
