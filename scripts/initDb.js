@@ -12,6 +12,25 @@ import { fileURLToPath } from 'url';
 
 const { Pool } = pg;
 
+const envPath = path.resolve(process.cwd(), '.env');
+const examplePath = path.resolve(process.cwd(), '.env.example');
+if (!fs.existsSync(envPath)) {
+  if (!process.env.DATABASE_URL) {
+    if (fs.existsSync(examplePath)) {
+      fs.copyFileSync(examplePath, envPath);
+    } else {
+      fs.writeFileSync(
+        envPath,
+        'DATABASE_URL=postgres://username:password@localhost:5432/your_db_name\n'
+      );
+    }
+    console.log('Created .env file. Please edit it with your credentials.');
+    process.exit(1);
+  } else {
+    console.warn('.env file not found, using DATABASE_URL from environment.');
+  }
+}
+
 export default async function initDb() {
   if (!process.env.DATABASE_URL) {
     throw new Error('DATABASE_URL is not set');
@@ -59,4 +78,4 @@ if (path.resolve(process.argv[1] || '') === thisFile) {
       process.exit(1);
     });
 }
-/*  End of File – Last modified 2025-07-11 */
+/*  End of File – Last modified 2025-07-12 */
