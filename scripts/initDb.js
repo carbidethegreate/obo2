@@ -3,24 +3,79 @@
     Purpose: initialise DB with schema and seeds
     Created: 2025-07-06 – v1.0
 */
+
+import 'dotenv/config'; // load .env for DATABASE_URL
 import fs from 'fs';
 import pg from 'pg';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const { Pool } = pg;
 
-export async function initDb() {
+const envPath = path.resolve(process.cwd(), '.env');
+const examplePath = path.resolve(process.cwd(), '.env.example');
+if (!fs.existsSync(envPath)) {
+  if (!process.env.DATABASE_URL) {
+    if (fs.existsSync(examplePath)) {
+      fs.copyFileSync(examplePath, envPath);
+    } else {
+      fs.writeFileSync(
+        envPath,
+        'DATABASE_URL=postgres://username:password@localhost:5432/your_db_name\n'
+      );
+    }
+    console.log('Created .env file. Please edit it with your credentials.');
+    process.exit(1);
+  } else {
+    console.warn('.env file not found, using DATABASE_URL from environment.');
+  }
+}
 
+export default async function initDb() {
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL is not set');
+  }
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
   const schema = fs.readFileSync(new URL('../src/server/db/schema.sql', import.meta.url).pathname, 'utf8');
   const seeds = fs.readFileSync(new URL('../src/server/db/seeds.sql', import.meta.url).pathname, 'utf8');
-  await pool.query(schema);
-  await pool.query(seeds);
-  await pool.end();
-  console.log('Database initialised');
+  try {
+    await pool.query(schema);
+    await pool.query(seeds);
+    console.log('Database initialised');
+  } catch (err) {
+    if (err.message && err.message.includes('does not exist')) {
+      console.error('Database not found. Attempting to create...');
+      await pool.end();
+      const url = new URL(process.env.DATABASE_URL);
+      const dbName = url.pathname.slice(1);
+      const adminUrl = new URL(url);
+      adminUrl.pathname = '/postgres';
+      const adminPool = new Pool({ connectionString: adminUrl.toString() });
+      try {
+        await adminPool.query(`CREATE DATABASE "${dbName}"`);
+        console.log(`Database ${dbName} created. Please restart the app.`);
+      } catch (createErr) {
+        console.error('Automatic database creation failed. Please create the database manually.');
+        console.error(createErr);
+        throw createErr;
+      } finally {
+        await adminPool.end();
+      }
+      return;
+    }
+    throw err;
+  } finally {
+    await pool.end();
+  }
 }
-initDb().catch(err => {
-  console.error(err);
-  process.exit(1);
-  });
-export default initDb;
-/*  End of File – Last modified 2025-07-06 */
+
+const thisFile = fileURLToPath(import.meta.url);
+if (path.resolve(process.argv[1] || '') === thisFile) {
+  initDb()
+    .then(() => process.exit(0))
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+}
+/*  End of File – Last modified 2025-07-12 */

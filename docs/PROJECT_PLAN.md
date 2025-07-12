@@ -16,16 +16,16 @@ Table of Contents
 	2.	Guiding Principles
 	3.	High‑Level Architecture
 	4.	Core Data Model
-	5.	Epics and Detailed User Stories
-	6.	OnlyFans API Integration Reference
+	5.	Epics and Detailed User Stories
+	6.	OnlyFans API Integration Reference
 	7.	ChatGPT Integration Patterns
-	8.	Codebase Skeleton + Comment Conventions
+	8.	Codebase Skeleton + Comment Conventions
 	9.	Development Workflow
 	10.	Testing Strategy
-	11.	CI/CD Pipeline
+	11.	CI/CD Pipeline
 	12.	Security, Rate Limits, Error Handling
 	13.	Glossary
-	14.	Revision Log
+	14.	Revision Log
 
 
 
@@ -393,7 +393,7 @@ Conclusion: Overall, the project’s use of the OnlyFans API is quite thorough a
 We are building an agency‑grade dashboard that lets creators or managers control every part of an OnlyFans account from one place – syncing fans and chats, drafting AI‑assisted replies, scheduling posts, sending mass messages, tracking earnings, and more.
 The app talks to two external systems:
 
-	•	OnlyFans API – CRUD for fans, messages, media, payouts, analytics.
+	•	OnlyFans API – CRUD for fans, messages, media, payouts, analytics.
 	•	OpenAI ChatGPT – natural language and persona features: friendly nicknames, tone‑matched replies, churn predictions, etc.
 
 Everything runs on a Node.js + PostgreSQL + Vue stack with hourly cron jobs for heavy lifting and a REST back‑end for the front‑end SPA.
@@ -472,7 +472,7 @@ Remove the Status column from the earlier implementation map – everything is P
 | F‑1    | LTV Scoreboard            | SQL view + dashboard card.                                                                                                                                             | Card refreshes nightly, shows top 10 fans by lifetime value.                         | views/ltv.sql, ltvCard.vue          | n/a                                                                                                                                                                                    | none                                               |
 | F‑2    | Churn Predictor           | Logistic regression nightly.                                                                                                                                           | AUC ≥ 0.75 on hold-out set.                                                          | cron/churnPredictor.js              | local                                                                                                                                                                                  | GPT can explain risk factors                       |
 | F‑3    | Smart PPV Price Hint      | Suggest PPV price using tone + experiments.                                                                                                                            | Suggested price within ±20 % of actual mean purchase.                                | utils/smartPPV.js                   | local                                                                                                                                                                                  |                                                    |
-6. OnlyFans API Integration Reference
+6. OnlyFans API Integration Reference
 
 The analysis below is lifted directly from the official documentation and verified line‑by‑line.
 Codex must consult this table whenever it generates or reviews a fetch wrapper.
@@ -501,7 +501,7 @@ Codex must consult this table whenever it generates or reviews a fetch wrapper.
 | **Reply Draft**         | Persona + last 5 inbound messages + style guide. “Write a masculine, friendly reply based on Parker's character profile (editable from Parker's dashboard). Reply. 120 chars max.”                                                                      | 0.7  | 60         | Cron job hourly.                                         |
 | **Churn Predictor Explain** | “Explain in 2 sentences why this fan might churn based on metrics: `{{json}}`.”                                                                                                                                                                   | 0.2  | 40         | Adds human‑readable note to churn table.                 |
 
-All GPT calls use model openai.o3 and stream responses where feasible.
+All GPT calls use model openai.o3 and stream responses where feasible.
 
 Every file starts with:
 /*  OnlyFans Automation Manager
@@ -512,7 +512,7 @@ Every file starts with:
 
 and ends with:
 
-/*  End of File – Last modified 2025‑07‑06 */
+/*  End of File – Last modified 2025‑07‑06 */
 
 Directory map:
 /src
@@ -552,11 +552,10 @@ Directory map:
 	1.	Branch per story – naming: story/A‑1‑sync‑all.
 	2.	PR template links back to Story ID, lists OnlyFans endpoints touched.
 	3.	Code owners require at least one reviewer for every OnlyFans request wrapper.
-	4.	Squash merge into main, auto‑deploy to staging.
+	4.	Squash merge into main, auto‑deploy to staging.
 	5.	Tags – bump minor version every merged epic, patch for hot‑fixe
-
         6.      Validate package.json syntax after edits using jq . package.json or use an online JSON linter.
-
+        7.      Copy .env.example to .env and run `npm run init-db` on first setup.
 
 10. Testing Strategy
 
@@ -574,7 +573,7 @@ Playwright on staging
 Critical flows: full sync, send DM, schedule post
 Load
 k6
-500 concurrent syncs sustain < 1 s p95
+500 concurrent syncs sustain < 1 s p95
 
 
 Seed fixtures include anonymised fan JSON and recorded OnlyFans API traces.
@@ -594,7 +593,7 @@ Seed fixtures include anonymised fan JSON and recorded OnlyFans API traces.
 
 12. Security, Rate Limits, Error Handling
 	•	Store API keys encrypted with libsodium sealed boxes.
-	•	Obey OnlyFans rate limit – max 1 request / s per account. All calls pass through safeGET() or safePOST() that:
+	•	Obey OnlyFans rate limit – max 1 request / s per account. All calls pass through safeGET() or safePOST() that:
 	1.	Adds random 250‑750 ms jitter.
 	2.	Retries with exponential back‑off (1 s, 2 s, 4 s, give up at 5 tries).
 	•	Validate all OpenAI outputs against regex to block personally identifying info.
@@ -619,3 +618,6 @@ Lifetime Value – total net spend by a fan.
 - 2025-07-06: Added instructions HTML and user story annotations in code.
 - 2025-07-10: Added full stack implementation with cron jobs, Vue dashboard, Docker setup and secure key storage.
 - 2025-07-11: Made database seeds idempotent and updated instructions.
+- 2025-07-11: Added winston logging and feature toggles in cron jobs; documented production env.
+- 2025-07-12: Improved .env handling and environment checks before DB init.
+- 2025-07-13: initDb now creates .env if missing and exits with instructions.

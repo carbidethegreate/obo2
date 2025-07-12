@@ -3,11 +3,33 @@
     Purpose: Express entry-point (orchestrates API endpoints for all stories)
     Created: 2025‑07‑06 – v1.0
 */
-import initDb from '../../scripts/initDb.js';
-await initDb();
-
 import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
+
+const envPath = path.resolve(process.cwd(), '.env');
+const examplePath = path.resolve(process.cwd(), '.env.example');
+if (!fs.existsSync(envPath)) {
+  if (!process.env.DATABASE_URL) {
+    if (fs.existsSync(examplePath)) {
+      fs.copyFileSync(examplePath, envPath);
+    } else {
+      fs.writeFileSync(envPath, 'DATABASE_URL=postgres://username:password@localhost:5432/your_db_name\n');
+    }
+    console.log('Created .env file. Please edit it to add your database credentials.');
+    process.exit(1);
+  } else {
+    console.warn('.env file not found, using DATABASE_URL from environment.');
+  }
+}
+
+if (!process.env.DATABASE_URL) {
+  console.error('ERROR: DATABASE_URL is not set. Please update .env.');
+  process.exit(1);
+}
+
 import express from 'express';
+import initDb from '../../scripts/initDb.js';
 import { runFullSync, refreshFan, backfillMessages } from './sync.js';
 import { safeGET, safePOST, safePUT, safePATCH, safeDELETE } from './api/onlyfansApi.js';
 import { startCronJobs } from './cron/index.js';
@@ -16,6 +38,13 @@ import { runVariantExperiment } from './cron/experiment.js';
 import { startAuth, pollAuth, submitTwoFactor } from './api/auth.js';
 import { graphqlHTTP } from 'express-graphql';
 import { schema } from './graphql/schema.js';
+
+if (process.env.INIT_DB_ON_STARTUP === 'true') {
+  await initDb().catch(err => {
+    console.error('Database init failed', err);
+    process.exit(1);
+  });
+}
 
 const app = express();
 app.use(express.json());
@@ -537,3 +566,5 @@ startCronJobs();
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+/*  End of File – Last modified 2025‑07‑12 */
