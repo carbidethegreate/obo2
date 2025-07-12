@@ -5,12 +5,14 @@
 */
 
 import { safeGET, safePOST } from '../api/onlyfansApi.js';
-import { query } from '../db/db.js';
+import { query, isFeatureEnabled } from '../db/db.js';
+import { logger } from '../logger.js';
 import { randomThanks } from '../utils/randomThanks.js';
 
-export async function autoThank() {
+async function autoThank() {
+  if (!await isFeatureEnabled('autoThankEnabled')) return;
   try {
-    console.log('autoThank cron started');
+    logger.info('autoThank cron started');
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
     if (!acctId) return;
@@ -25,14 +27,15 @@ export async function autoThank() {
       await safePOST(`/api/${acctId}/chats/${t.user_id}/messages`, { text });
       lastId = t.id;
       await query('INSERT INTO settings(key,value) VALUES($1,$2) ON CONFLICT (key) DO UPDATE SET value=EXCLUDED.value', ['autoThankLastTxn', String(lastId)]);
-      console.log(`autoThanked fan ${t.user_id} for txn ${t.id}`);
+      logger.info(`autoThanked fan ${t.user_id} for txn ${t.id}`);
       await new Promise(r => setTimeout(r, 1000));
     }
-    console.log('autoThank cron finished');
+    logger.info('autoThank cron finished');
   } catch (err) {
-    console.error('autoThank failed', err);
+    logger.error(`autoThank failed ${err}`);
   }
 }
 
-/*  End of File – Last modified 2025‑07‑06 */
+export const autoThankJob = { name: 'autoThank', schedule: '*/10 * * * *', fn: autoThank };
 
+/*  End of File – Last modified 2025-07-11 */

@@ -5,14 +5,17 @@
 */
 
 import { safeGET, safePOST } from '../api/onlyfansApi.js';
-import { query } from '../db/db.js';
+import { query, isFeatureEnabled } from '../db/db.js';
 import { OpenAI } from 'openai';
 import { decryptEnv } from '../security/secureKeys.js';
+import { logger } from '../logger.js';
 
 let openai;
 
-export async function spendTierNudger() {
+async function spendTierNudger() {
+  if (!await isFeatureEnabled('spendTierNudgerEnabled')) return;
   try {
+    logger.info('spendTierNudger cron started');
     if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
@@ -39,9 +42,12 @@ export async function spendTierNudger() {
       await query('INSERT INTO settings(key,value) VALUES($1,$2) ON CONFLICT (key) DO UPDATE SET value=EXCLUDED.value', ['spendNudgeLastTxn', String(lastId)]);
       await new Promise(r => setTimeout(r, 1000));
     }
+    logger.info('spendTierNudger cron finished');
   } catch (err) {
-    console.error('spendTierNudger failed', err);
+    logger.error(`spendTierNudger failed ${err}`);
   }
 }
 
-/*  End of File – Last modified 2025‑07‑06 */
+export const spendTierNudgerJob = { name: 'spendTierNudger', schedule: '0 0 * * *', fn: spendTierNudger };
+
+/*  End of File – Last modified 2025-07-11 */

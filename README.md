@@ -4,10 +4,10 @@ See [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) for the complete project plan.
 For step-by-step setup instructions, open [docs/instructions.html](docs/instructions.html) in your browser.
 
 ## Setup
-
 1. Copy `.env.example` to `.env` and edit `DATABASE_URL`.
-2. Run `npm run init-db` to create the database schema if needed.
-3. Start the server with `npm start`.
+2. Review required environment variables in docs/PROD_ENV.md
+3. Run `npm run init-db` to create the database schema if needed.
+4. Start the server with `npm start`.
 
 ## Development
 

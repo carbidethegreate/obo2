@@ -31,16 +31,16 @@ The following tasks are ordered roughly in the sequence needed to finish the pro
 
 7. **CI/CD pipeline enhancements** *(done)*
    - [x] Workflow builds Docker image `of-manager:{git-sha}` after tests.
-   - [ ] Publish image and deploy to staging.
+   - [x] Publish image and deploy to staging.
 
 8. **Deployment scripts** *(done)*
    - [x] Added `docker-compose.yml` for local stack.
-   - [ ] Document production environment variables.
+   - [x] Document production environment variables.
 
-9. **Documentation polish** *(in progress)*
+9. **Documentation polish** *(done)*
    - [x] README describes DB init and docker-compose.
    - [x] Instructions page mentions DB init.
-   - [ ] Update the `Revision Log` in the project plan.
+   - [x] Update the `Revision Log` in the project plan.
 
 10. **Final manual QA**
     - Run through each user story end-to-end in staging.

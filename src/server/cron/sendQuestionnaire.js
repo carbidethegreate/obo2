@@ -5,9 +5,10 @@
 */
 
 import { safeGET, safePOST } from '../api/onlyfansApi.js';
-import { query } from '../db/db.js';
+import { query, isFeatureEnabled } from '../db/db.js';
 import { OpenAI } from 'openai';
 import { decryptEnv } from '../security/secureKeys.js';
+import { logger } from '../logger.js';
 
 let openai;
 
@@ -25,8 +26,10 @@ export async function rateSentiment(text) {
   return isNaN(val) ? 0 : val;
 }
 
-export async function sendQuestionnaire() {
+async function sendQuestionnaire() {
+  if (!await isFeatureEnabled('questionnaireEnabled')) return;
   try {
+    logger.info('sendQuestionnaire cron start');
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
     if (!acctId) return;
@@ -49,9 +52,12 @@ export async function sendQuestionnaire() {
         }
       }
     }
+    logger.info('sendQuestionnaire cron finished');
   } catch (err) {
-    console.error('sendQuestionnaire failed', err);
+    logger.error(`sendQuestionnaire failed ${err}`);
   }
 }
 
-/*  End of File – Last modified 2025‑07‑06 */
+export const sendQuestionnaireJob = { name: 'questionnaire', schedule: '0 12 * * *', fn: sendQuestionnaire };
+
+/*  End of File – Last modified 2025-07-11 */

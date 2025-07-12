@@ -5,25 +5,29 @@
 */
 
 import cron from 'node-cron';
-import { autoThank } from './autoThank.js';
-import { spendTierNudger } from './spendTierNudger.js';
-import { generateReplies } from './generateReplies.js';
-import { churnPredictor } from './churnPredictor.js';
-import { updateExperimentStats } from './experiment.js';
-import { sendQuestionnaire } from './sendQuestionnaire.js';
-import { processOutbox } from './processOutbox.js';
+import { autoThankJob } from './autoThank.js';
+import { spendTierNudgerJob } from './spendTierNudger.js';
+import { generateRepliesJob } from './generateReplies.js';
+import { churnPredictorJob } from './churnPredictor.js';
+import { updateExperimentStatsJob } from './experiment.js';
+import { sendQuestionnaireJob } from './sendQuestionnaire.js';
+import { processOutboxJob } from './processOutbox.js';
 import { query } from '../db/db.js';
+import { logger } from '../logger.js';
 
 export async function startCronJobs() {
   const res = await query('SELECT key, value FROM settings');
   const map = Object.fromEntries(res.rows.map(r => [r.key, r.value === 'true']));
-  if (map.autoThankEnabled) cron.schedule('*/10 * * * *', autoThank);
-  if (map.spendTierNudgerEnabled) cron.schedule('0 0 * * *', spendTierNudger);
-  if (map.generateRepliesEnabled) cron.schedule('0 * * * *', generateReplies);
-  if (map.generateRepliesEnabled) cron.schedule('*/5 * * * *', processOutbox);
-  if (map.churnPredictorEnabled) cron.schedule('30 1 * * *', churnPredictor);
-  if (map.questionnaireEnabled) cron.schedule('0 12 * * *', sendQuestionnaire);
-  cron.schedule('15 * * * *', updateExperimentStats);
+  const jobs = [autoThankJob, spendTierNudgerJob, generateRepliesJob,
+    processOutboxJob, churnPredictorJob, sendQuestionnaireJob, updateExperimentStatsJob];
+  for (const job of jobs) {
+    if (!job.name || !job.schedule) continue;
+    const enabled = map[job.name + 'Enabled'];
+    if (enabled !== false) {
+      cron.schedule(job.schedule, job.fn);
+      logger.info(`scheduled ${job.name} at ${job.schedule}`);
+    }
+  }
 }
 
-/*  End of File – Last modified 2025‑07‑06 */
+/*  End of File – Last modified 2025-07-11 */

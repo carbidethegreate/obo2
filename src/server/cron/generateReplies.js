@@ -5,15 +5,18 @@
 */
 
 import { safeGET } from '../api/onlyfansApi.js';
-import { query } from '../db/db.js';
+import { query, isFeatureEnabled } from '../db/db.js';
 import { buildCharacter } from '../utils/buildCharacter.js';
 import { OpenAI } from 'openai';
 import { decryptEnv } from '../security/secureKeys.js';
+import { logger } from '../logger.js';
 
 let openai;
 
-export async function generateReplies() {
+async function generateReplies() {
+  if (!await isFeatureEnabled('generateRepliesEnabled')) return;
   try {
+    logger.info('generateReplies cron started');
     if (!openai) openai = new OpenAI({ apiKey: await decryptEnv('OPENAI_API_KEY') });
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
@@ -56,9 +59,12 @@ export async function generateReplies() {
       );
       await new Promise(r => setTimeout(r, 1000));
     }
+    logger.info('generateReplies cron finished');
   } catch (err) {
-    console.error('generateReplies failed', err);
+    logger.error(`generateReplies failed ${err}`);
   }
 }
 
-/*  End of File – Last modified 2025‑07‑06 */
+export const generateRepliesJob = { name: 'generateReplies', schedule: '0 * * * *', fn: generateReplies };
+
+/*  End of File – Last modified 2025-07-11 */

@@ -4,11 +4,14 @@
     Created: 2025-07-06 – v1.0
 */
 import { safeGET, safePOST } from '../api/onlyfansApi.js';
-import { query } from '../db/db.js';
+import { query, isFeatureEnabled } from '../db/db.js';
+import { logger } from '../logger.js';
 import { rateSentiment } from './sendQuestionnaire.js';
 
-export async function processOutbox() {
+async function processOutbox() {
+  if (!await isFeatureEnabled('generateRepliesEnabled')) return;
   try {
+    logger.info('processOutbox cron start');
     const accounts = await safeGET('/api/accounts');
     const acctId = accounts.data[0]?.id;
     if (!acctId) return;
@@ -25,9 +28,12 @@ export async function processOutbox() {
       await query('INSERT INTO settings(key,value) VALUES($1,$2) ON CONFLICT(key) DO UPDATE SET value=EXCLUDED.value', ['replyTemp', String(temp)]);
       await new Promise(r => setTimeout(r, 1000));
     }
+    logger.info('processOutbox cron finished');
   } catch (err) {
-    console.error('processOutbox failed', err);
+    logger.error(`processOutbox failed ${err}`);
   }
 }
 
-/*  End of File – Last modified 2025-07-06 */
+export const processOutboxJob = { name: 'processOutbox', schedule: '*/5 * * * *', fn: processOutbox };
+
+/*  End of File – Last modified 2025-07-11 */
