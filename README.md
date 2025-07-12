@@ -37,3 +37,32 @@ chmod +x push-reset.sh
 ```
 
 You must have valid Git credentials for the target repository.
+=======
+## Development
+
+Run `npm test` once to install dependencies and verify tests.
+Then run `npm start` to launch the Express server.
+
+### Database setup
+
+Ensure PostgreSQL is running and `DATABASE_URL` is set. Initialise tables with:
+```bash
+npm run db:init
+```
+
+To run everything with Docker Compose:
+```bash
+docker-compose up --build
+```
+
+### Resetting the remote repo
+
+If you need to push the current state of this project to a new Git remote, run
+the helper script:
+
+```bash
+chmod +x push-reset.sh
+./push-reset.sh <git_remote_url>
+```
+
+You must have valid Git credentials for the target repository.

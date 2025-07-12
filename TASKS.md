@@ -42,6 +42,17 @@ The following tasks are ordered roughly in the sequence needed to finish the pro
    - [x] Instructions page mentions DB init.
    - [x] Update the `Revision Log` in the project plan.
 
+   - [ ] Publish image and deploy to staging.
+
+8. **Deployment scripts** *(done)*
+   - [x] Added `docker-compose.yml` for local stack.
+   - [ ] Document production environment variables.
+
+9. **Documentation polish** *(in progress)*
+   - [x] README describes DB init and docker-compose.
+   - [x] Instructions page mentions DB init.
+   - [ ] Update the `Revision Log` in the project plan.
+
 10. **Final manual QA**
     - Run through each user story end-to-end in staging.
     - Fix any bugs discovered before tagging v1.0.

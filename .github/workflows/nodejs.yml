@@ -27,3 +27,4 @@ jobs:
           chmod 600 key.pem
           ssh -i key.pem -o StrictHostKeyChecking=no $SSH_HOST \
             "docker stack deploy -c docker-compose.yml ofmanager"
+
