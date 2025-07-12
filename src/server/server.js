@@ -3,21 +3,30 @@
     Purpose: Express entry-point (orchestrates API endpoints for all stories)
     Created: 2025‑07‑06 – v1.0
 */
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
-import dotenv from 'dotenv';
 
 const envPath = path.resolve(process.cwd(), '.env');
+const examplePath = path.resolve(process.cwd(), '.env.example');
 if (!fs.existsSync(envPath)) {
-  const example = path.resolve(process.cwd(), '.env.example');
-  if (fs.existsSync(example)) {
-    fs.copyFileSync(example, envPath);
+  if (!process.env.DATABASE_URL) {
+    if (fs.existsSync(examplePath)) {
+      fs.copyFileSync(examplePath, envPath);
+    } else {
+      fs.writeFileSync(envPath, 'DATABASE_URL=postgres://username:password@localhost:5432/your_db_name\n');
+    }
+    console.log('Created .env file. Please edit it to add your database credentials.');
+    process.exit(1);
   } else {
-    fs.writeFileSync(envPath, 'DATABASE_URL=postgres://username:password@localhost:5432/your_db_name\n');
+    console.warn('.env file not found, using DATABASE_URL from environment.');
   }
-  console.log('Created .env file. Please edit it to add your database credentials.');
 }
-dotenv.config({ path: envPath });
+
+if (!process.env.DATABASE_URL) {
+  console.error('ERROR: DATABASE_URL is not set. Please update .env.');
+  process.exit(1);
+}
 
 import express from 'express';
 import initDb from '../../scripts/initDb.js';
